@@ -1,7 +1,7 @@
 {
   "name": "worksync-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "node --inspect=9230 --require ts-node/register --require tsconfig-paths/register node_modules/nodemon/bin/nodemon.js src/server.ts",
     "start": "node dist/server.js",
