@@ -15,11 +15,12 @@ console.log("🔍 ENV VARIABLES:", {
 
 // Pause actual connection for debugging
 export const connectDB = async () => {
+  console.log("🔌 Attempting to connect to the database...");
   try {
-    console.log("🔌 Connecting to database...");
-    return null;
+    throw new Error("Manual test error"); // Force an error to check logs
   } catch (error) {
     console.error("❌ Database Connection Failed:", error);
+    throw error; // Ensure it appears in logs
   }
 };
 
