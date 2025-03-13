@@ -5,7 +5,7 @@ dotenv.config();
 
 console.log("🔍 ENV VARIABLES:", {
   DB_USER: process.env.DB_USER,
-  DB_PASSWORD: process.env.DB_PASSWORD ? "HIDDEN" : "NOT SET", // Hide password for security
+  DB_PASSWORD: process.env.DB_PASSWORD ? "HIDDEN" : "NOT SET",
   DB_SERVER: process.env.DB_SERVER,
   DB_NAME: process.env.DB_NAME,
   DB_PORT: process.env.DB_PORT,
@@ -13,22 +13,27 @@ console.log("🔍 ENV VARIABLES:", {
   DB_TRUST_SERVER_CERT: process.env.DB_TRUST_SERVER_CERT,
 });
 
-// Pause actual connection for debugging
 export const connectDB = async () => {
-  console.log("🔌 Attempting to connect to the database...");
   try {
-    console.log("🔍 ENV VARIABLES:", {
-      DB_USER: process.env.DB_USER,
-      DB_PASSWORD: process.env.DB_PASSWORD ? "HIDDEN" : "NOT SET", // Hide password for security
-      DB_SERVER: process.env.DB_SERVER,
-      DB_NAME: process.env.DB_NAME,
-      DB_PORT: process.env.DB_PORT,
-    });
+    console.log("🔌 Attempting to connect to the database...");
 
-    return null; // Pause actual connection for debugging
+    const config = {
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      server: process.env.DB_SERVER,
+      database: process.env.DB_NAME,
+      port: parseInt(process.env.DB_PORT || "1433", 10),
+      options: {
+        encrypt: process.env.DB_ENCRYPT === "true",
+        trustServerCertificate: process.env.DB_TRUST_SERVER_CERT === "true",
+      },
+    };
+
+    console.log("🔄 Connecting with config:", config);
+
+    await sql.connect(config);
+    console.log("✅ Database connected successfully!");
   } catch (error) {
     console.error("❌ Database Connection Failed:", error);
   }
 };
-
-export { sql }; // ✅ Exporting sql in case it's needed elsewhere
