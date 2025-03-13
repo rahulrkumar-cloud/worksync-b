@@ -1,15 +1,12 @@
 // userController.ts
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import { connectDB, sql } from "../config/db";
 import dotenv from "dotenv";
 import generateToken from "../utils/generateToken"; // Adjust path as needed
-import { User}  from "../models/userModel"; // Adjust path as needed
+import { User } from "../models/userModel"; // Adjust path as needed
+import { connectDB, sql } from "../config/db"; // ✅ Keep only this import
 
 dotenv.config(); // Load environment variables
-
-// ✅ Get all users
-import { sql, connectDB } from "../config/db";
 
 export const getUsers = async (req, res) => {
   try {
