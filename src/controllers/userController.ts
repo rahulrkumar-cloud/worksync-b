@@ -9,14 +9,20 @@ import { User}  from "../models/userModel"; // Adjust path as needed
 dotenv.config(); // Load environment variables
 
 // ✅ Get all users
-export const getUsers = async (req: Request, res: Response): Promise<void> => {
+import { sql, connectDB } from "../config/db";
+
+export const getUsers = async (req, res) => {
   try {
     const pool = await connectDB();
-    const result = await pool.request().query("SELECT id, name, email FROM Users"); // Exclude password
+    if (!pool) {
+      return res.status(500).json({ error: "Database connection failed" });
+    }
+
+    const result = await pool.request().query("SELECT * FROM Users");
     res.json(result.recordset);
   } catch (error) {
-    console.error("Error fetching users:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("❌ Error fetching users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
