@@ -13,20 +13,16 @@ dotenv.config();
 app.use(cors());
 app.use(bodyParser.json());
 
+// ✅ Add a root route for "/"
+app.get("/", (req, res) => {
+  res.send("🚀 Express API is running on Vercel!");
+});
+
 // Routes
 app.use("/users", userRoutes);
 
-// Start Server
-const PORT = process.env.PORT || 5000;
+// Connect to DB when function runs
+connectDB().catch((err) => console.error("❌ Database connection failed:", err));
 
-app.listen(PORT, async () => {
-  try {
-    await connectDB();
-    console.log(`🚀 Server running on port ${PORT}`);
-  } catch (error) {
-    console.error("❌ Error starting server:", error);
-  }
-});
-
-// Export the app for Vercel
+// Export app for Vercel (No app.listen())
 export default app;
