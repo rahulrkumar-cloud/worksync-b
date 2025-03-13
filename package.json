@@ -19,7 +19,8 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mssql": "^11.0.1",
-    "tsconfig-paths": "^4.2.0"
+    "tsconfig-paths": "^4.2.0",
+    "@vercel/node": "^3.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
